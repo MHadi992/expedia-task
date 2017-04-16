@@ -1,0 +1,153 @@
+@CHARSET "ISO-8859-1";
+
+#main-menu {
+	position: fixed;
+	border-radius: 25px;
+	border: 1px solid #008000;
+	padding: 5px;
+	margin-bottom: 10px;
+	background: rgba(0, 0, 0, .75);
+	float: left;
+	color: white;
+}
+
+#main-content {
+	width: 65%;
+	float: right;
+	margin-right: 4%;
+}
+
+#page-header {
+	border: none;
+	width: 100%;
+	margin: 20px auto;
+	position: relative;
+}
+
+.title {
+	font-family: fontawesome;
+	text-decoration: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 48px;
+	letter-spacing: 3px;
+	color: #555555;
+	display: block;
+	position: relative;
+	margin-left: 6%;
+	font-weight: bolder;
+}
+
+.doc-body {
+	background: #d4d4d4;
+}
+
+.searchButton {
+	background-color: #e7e7e7;
+	color: black;
+	font-size: 16px;
+	border-radius: 12px;
+	padding: 10px;
+	width: 100%;
+	border-color: blue;
+}
+
+input[type=text] {
+	border-bottom: 2px blue solid !important;
+	background: rgba(245, 245, 220, 0.24);
+	color: rgba(255, 255, 255, 0.82);
+	border: none;
+	border-radius: 12px;
+	margin: 3px auto;
+}
+
+.no-result {
+	border-radius: 25px;
+	border-collapse: collapse;
+	border-spacing: 2px;
+	margin: 0px auto;
+	border-bottom: black;
+	background: cornsilk;
+	text-align: center;
+	font-size: 20px;
+	color: blue;
+}
+
+.tg-wrap {
+	border-radius: 25px;
+	border: 1px solid #3c453a;
+	padding: 10px;
+	margin-bottom: 10px;
+	background: rgb(243, 249, 254);
+}
+
+.tg {
+	border-collapse: collapse;
+	border-spacing: 2px;
+	margin: 0px auto;
+	border-collapse: collapse;
+	border-spacing: 2px;
+	margin: 0px auto;
+}
+
+.tg td {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 10px 5px;
+	overflow: hidden;
+	word-break: normal;
+	text-align: left;
+	vertical-align: top
+}
+
+.tg th {
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 10px 5px;
+	overflow: hidden;
+	word-break: normal;
+}
+
+.tg .tg-baqh {
+	text-align: center;
+	vertical-align: top
+}
+
+.tg .tg-bn4o {
+	font-weight: bold;
+	font-size: 18px;
+	text-align: left;
+	vertical-align: top
+}
+
+.tg .tg-l2oz {
+	font-weight: bold;
+	text-align: left;
+	vertical-align: top
+}
+
+.tg .tg-yw4l {
+	vertical-align: top
+}
+
+.tg .tg-9hbo {
+	font-weight: bold;
+	vertical-align: top
+}
+
+@media screen and (max-width: 767px) {
+	.tg {
+		width: auto !important;
+		border-collapse: collapse;
+		border-spacing: 2px;
+		margin: 0px auto;
+		border-bottom: black;
+		border-bottom-style: dotted;
+		border-bottom-width: thin;
+	}
+	.tg col {
+		width: auto !important;
+	}
+}

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+		<h:outputStylesheet name="css/offers.css" id="offersStyleSheet" ></h:outputStylesheet>
+	</h:head>
+
+	<h:body styleClass="doc-body">
+
+		<div id="page-header">
+			<a class="title">Expedia Task</a>
+		</div>
+		<div id="page-wrap">
+			<div id="main-menu">
+				<h:form action="offers" method="post">
+					<table>
+						<tbody>
+							<tr>
+								<td><h3>Filter Offers</h3></td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>By Destination:</td>
+											<td><h:inputText
+													styleClass="ui-inputfield ui-widget ui-state-default ui-corner-all hasDatepicker ui-state-hover"
+													value="#{offersManager.destinationName}"
+													id="destinationName"></h:inputText></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>By Travel Start Date(min):</td>
+											<td><p:calendar size="10" id="startDateMin" immediate="true"
+													mindate="#{offersManager.today}"
+													value="#{offersManager.startDateMin}" pattern="yyyy-MM-dd"
+													mask="true" /></td>
+										</tr>
+										<tr>
+											<td>By Travel Start Date(max):</td>
+											<td><p:calendar size="10" id="startDateMax"
+													mindate="#{offersManager.today}"
+													value="#{offersManager.startDateMax}" pattern="yyyy-MM-dd"
+													mask="true" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><h:panelGrid columns="1" style="margin-bottom: 10px">
+										<h:outputText id="lengthOfStayOutput"
+											value="Staying for #{offersManager.lengthOfStay == null ? 'how many days?' : 'offersManager.lengthOfStay  Days'}" />
+										<h:inputHidden id="lengthOfStay"
+											value="#{offersManager.lengthOfStay}" />
+										<p:slider for="lengthOfStay" display="lengthOfStayOutput"
+											style="width: 200px"
+											displayTemplate="Staying for {value}Days" />
+									</h:panelGrid></td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>By Budget:</td>
+											<td><h:panelGrid columns="1" style="margin-bottom: 1px">
+													<h:outputText id="budget"
+														value="Budget between #{offersManager.minTotalRate} and #{offersManager.maxTotalRate} USD" />
+													<p:spinner size="10" id="minTotalRate"
+														value="#{offersManager.minTotalRate}" prefix="$" min="1" />
+													<p:spinner size="10" id="maxTotalRate"
+														value="#{offersManager.maxTotalRate}" prefix="$" min="2" />
+												</h:panelGrid></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>By Hotel Rank(min):</td>
+											<td><p:rating id="minStarsRating"
+													value="#{offersManager.minStarsRating}" stars="5"
+													cancel="true" /></td>
+										</tr>
+										<tr>
+											<td>By Hotel Rank(max):</td>
+											<td><p:rating id="maxStarsRating"
+													value="#{offersManager.maxStarsRating}" stars="5"
+													cancel="true" /></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>By Guest Rating(min):</td>
+											<td><p:rating id="minGuestRating"
+													value="#{offersManager.minGuestRating}" stars="5"
+													cancel="true" /></td>
+										</tr>
+										<tr>
+											<td>By Guest Rating(max):</td>
+											<td><p:rating id="maxGuestRating"
+													value="#{offersManager.maxGuestRating}" stars="5"
+													cancel="true" /></td>
+
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td><h:commandButton type="submit"
+										value="search for offers" styleClass="searchButton"
+										action="#{offersManager.updateOffers}"></h:commandButton></td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</h:form>
+			</div>
+
+		</div>
+		<div id="main-content">
+			<c:if test="#{empty offersManager.availableHotelOffers}">
+				<h:outputText name="noResultFound">
+					<p class="no-result">No results found that matches the selected filters</p>
+				</h:outputText>
+			</c:if>
+			<ui:param name="offersInfo" value="#{offersManager.offerInfo}" />
+			<c:if test="#{not empty offersManager.availableHotelOffers}">
+				<c:forEach var="offer" items="#{offersManager.availableHotelOffers}">
+					<div class="tg-wrap">
+						<table class="tg">
+							<tr>
+								<th class="tg-bn4o" colspan="4"><h:outputLink
+										value="#{offer.hotelUrls.hotelInfositeUrl}" target="_blank">#{offer.hotelInfo.hotelName}</h:outputLink>
+								</th>
+								<th class="tg-bn4o" colspan="3">Hotel Rank: <h:form>
+										<p:rating
+											value="#{offer.hotelInfo.hotelStarRating.intValue()}"
+											stars="5" readonly="true" />
+									</h:form>
+								</th>
+								<td class="tg-yw4l" colspan="4">#{offer.hotelInfo.hotelLongDestination},#{offer.hotelInfo.hotelStreetAddress}</td>
+								<td class="tg-9hbo" colspan="2">Cost:#{offer.hotelPricingInfo.totalPriceValue} #{offersInfo.currency}</td>
+							</tr>
+							<tr>
+								<td class="tg-yw4l" rowspan="3" colspan="3"><h:outputLink
+										value="#{offer.hotelUrls.hotelSearchResultUrl}"
+										target="_blank">
+										<img src="#{offer.hotelInfo.hotelImageUrl}" width="100%"
+											height="100%" alt="Sorry, picture is unavailabe" />
+									</h:outputLink></td>
+							</tr>
+							<tr>
+								<td class="tg-l2oz" colspan="4">Guests Review Rating: <h:form>
+										<p:rating
+											value="#{offer.hotelInfo.hotelGuestReviewRating.intValue()}"
+											stars="5" readonly="true" />
+									</h:form>
+								</td>
+								<td class="tg-l2oz" colspan="2">Available
+									(#{offer.offerDateRange.dateTravelStarts} -
+									#{offer.offerDateRange.dateTravelEnds}),
+									#{offer.offerDateRange.lengthOfStay} Days</td>
+							</tr>
+
+							<tr>
+								<td>Description</td>
+								<td colspan="4" rowspan="2">#{offer.hotelInfo.description}</td>
+							</tr>
+							<tr>
+								<td class="tg-9hbo" colspan="2">Language: #{offer.hotelInfo.language}</td>
+							</tr>
+						</table>
+					</div>
+				</c:forEach>
+			</c:if>
+		</div>
+	</h:body>
+</html>
